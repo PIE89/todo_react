@@ -8,7 +8,7 @@ const matchPath = (path: string, route: string): MatchPathParams | null => {
 
   if (pathParts.length !== routePaths.length) return null;
 
-  const params = {};
+  const params: MatchPathParams = {};
 
   for (let i = 0; i < routePaths.length; i++) {
     if (routePaths[i].startsWith(":")) {
