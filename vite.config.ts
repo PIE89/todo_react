@@ -16,5 +16,5 @@ export default defineConfig({
       "@": fileURLToPath(new URL("./src", import.meta.url)),
     },
   },
-  // base: "/todo_react/",
+  base: "/todo_react/",
 });
