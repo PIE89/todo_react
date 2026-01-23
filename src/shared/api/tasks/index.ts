@@ -9,7 +9,7 @@ interface TaskApiInterface {
   deleteAllTasks: (tasks: Task[]) => Promise<Response[]>;
 }
 
-const URL: string = "http://localhost:3000/todos";
+const URL: string = import.meta.env.VITE_API_BASE_URL;
 
 const headers = { "Content-Type": "application/json" };
 

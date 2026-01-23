@@ -1,29 +1,3 @@
 {
-  "todos": [
-    {
-      "id": "5fa284d4-0739-4f99-bd94-7abf5cb44941",
-      "task": "s",
-      "isChecked": false
-    },
-    {
-      "id": "4d68cf00-5d08-4030-b22b-e66762066496",
-      "task": "sd",
-      "isChecked": false
-    },
-    {
-      "id": "8cb8f694-c470-4b7a-b367-daa78597405d",
-      "task": "asd",
-      "isChecked": false
-    },
-    {
-      "id": "048ef010-839e-4a66-b543-23db9d44c5a5",
-      "task": "sa",
-      "isChecked": false
-    },
-    {
-      "id": "f6b82301-13e1-45b9-885d-3532d9284c11",
-      "task": "dsa",
-      "isChecked": false
-    }
-  ]
+  "todos": []
 }
