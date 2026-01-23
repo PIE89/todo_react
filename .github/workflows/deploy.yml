@@ -1,4 +1,4 @@
-name: Tofo_react Deploy
+name: Todo_react Deploy
 
 on:
   push:
@@ -10,21 +10,21 @@ permissions:
   id-token: write
 
 jobs:
-    deploy:
-      runs-on: ubuntu-latest
+  deploy:
+    runs-on: ubuntu-latest
 
-      steps:
-        - uses: actions/checkout@v4
+    steps:
+      - uses: actions/checkout@v4
 
-        - uses: actions/setup-node@v4
-          with:
+      - uses: actions/setup-node@v4
+        with:
           node-version: 20
 
-        - run: npm install
-        - run: npm run build
+      - run: npm install
+      - run: npm run build
 
-        - uses: actions/upload-pages-artifact@v3
+      - uses: actions/upload-pages-artifact@v3
         with:
           path: ./dist
 
-        - uses: actions/deploy-pages@v4
+      - uses: actions/deploy-pages@v4
