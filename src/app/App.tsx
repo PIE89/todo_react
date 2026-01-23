@@ -2,9 +2,11 @@ import Router from "./routing/Router";
 import TaskPage from "@/pages/TaskPage";
 import TasksPage from "@/pages/TasksPage";
 import "./styles";
+import type { ComponentType } from "react";
 
 const App = () => {
-  const routes = {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const routes: Record<string, ComponentType<any>> = {
     "/": TasksPage,
     "/tasks/:id": TaskPage,
     "*": () => <div>404 page not found</div>,
