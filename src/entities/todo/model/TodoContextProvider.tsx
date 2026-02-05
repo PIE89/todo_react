@@ -10,8 +10,6 @@ export const TodoContextProvider: FC<TodoContextProviderProps> = ({
   children,
 }) => {
   const {
-    newTask,
-    setNewTask,
     searchQuery,
     setSearchQuery,
 
@@ -38,8 +36,6 @@ export const TodoContextProvider: FC<TodoContextProviderProps> = ({
 
   const value = useMemo(
     () => ({
-      newTask,
-      setNewTask,
       searchQuery,
       setSearchQuery,
 
@@ -64,8 +60,6 @@ export const TodoContextProvider: FC<TodoContextProviderProps> = ({
       error,
     }),
     [
-      newTask,
-      setNewTask,
       searchQuery,
       setSearchQuery,
 

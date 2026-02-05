@@ -10,8 +10,6 @@ import { type Task } from "./TodoContext";
 import taskAPI from "@/shared/api/tasks";
 
 export interface UseTasksReturn {
-  newTask: string;
-  setNewTask: React.Dispatch<React.SetStateAction<string>>;
   searchQuery: string;
   setSearchQuery: React.Dispatch<React.SetStateAction<string>>;
   tasks: Task[];
@@ -19,7 +17,7 @@ export interface UseTasksReturn {
   filteredTasks: Task[];
   countOfDoneTasks: number;
   getTask: (id: string) => Promise<void>;
-  addTask: (task: string) => Promise<void>;
+  addTask: (task: string, callbackAfterAdding: () => void) => Promise<void>;
   deleteAllTasks: () => Promise<void>;
   toggleCompleteTask: (id: string) => Promise<void>;
   deleteTask: (id: string) => Promise<void>;
@@ -65,7 +63,7 @@ const useTasks = (): UseTasksReturn => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState<string>("");
-  const [newTask, setNewTask] = useState<string>("");
+
   const [disappearingTaskId, setDisappearingTaskId] = useState<string | null>(
     null
   );
@@ -145,33 +143,36 @@ const useTasks = (): UseTasksReturn => {
     }
   }, []);
 
-  const addTask = useCallback(async (task: string) => {
-    const newTaskObj: Task = {
-      id: crypto?.randomUUID() ?? Date.now().toString(),
-      task,
-      isChecked: false,
-    };
+  const addTask = useCallback(
+    async (task: string, callbackAfterAdding: () => void) => {
+      const newTaskObj: Task = {
+        id: crypto?.randomUUID() ?? Date.now().toString(),
+        task,
+        isChecked: false,
+      };
 
-    try {
-      const response = await taskAPI.addTask(newTaskObj);
+      try {
+        const response = await taskAPI.addTask(newTaskObj);
 
-      if (!response.ok) {
-        throw new Error("Network Problems");
+        if (!response.ok) {
+          throw new Error("Network Problems");
+        }
+
+        dispatch({ type: "ADD", task: newTaskObj });
+
+        callbackAfterAdding();
+        newTaskInputRef.current?.focus();
+        setAppearingTaskId(newTaskObj.id);
+
+        setTimeout(() => {
+          setAppearingTaskId(null);
+        }, 400);
+      } catch (error: unknown) {
+        setError(error instanceof Error ? error.message : "Error");
       }
-
-      dispatch({ type: "ADD", task: newTaskObj });
-
-      setNewTask("");
-      newTaskInputRef.current?.focus();
-      setAppearingTaskId(newTaskObj.id);
-
-      setTimeout(() => {
-        setAppearingTaskId(null);
-      }, 400);
-    } catch (error: unknown) {
-      setError(error instanceof Error ? error.message : "Error");
-    }
-  }, []);
+    },
+    []
+  );
 
   const toggleCompleteTask = useCallback(async (id: string) => {
     try {
@@ -238,8 +239,6 @@ const useTasks = (): UseTasksReturn => {
 
   return {
     // Состояние
-    newTask,
-    setNewTask,
     searchQuery,
     setSearchQuery,
 

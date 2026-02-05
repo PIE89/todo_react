@@ -6,8 +6,9 @@ import styles from "./AddTaskForm.module.scss";
 
 const AddTaskForm = () => {
   const [error, setError] = useState<string>("");
+  const [newTask, setNewTask] = useState<string>("");
 
-  const { newTask, addTask, newTaskInputRef, setNewTask } = useTodoContext();
+  const { addTask, newTaskInputRef } = useTodoContext();
 
   const clearNewTask = newTask.trim();
   const isNewTaskEmpty = clearNewTask.length === 0;
@@ -15,7 +16,7 @@ const AddTaskForm = () => {
   const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (!isNewTaskEmpty) {
-      addTask(clearNewTask);
+      addTask(clearNewTask, () => setNewTask(""));
     }
   };
 
