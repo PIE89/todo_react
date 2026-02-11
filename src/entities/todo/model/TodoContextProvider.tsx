@@ -14,7 +14,7 @@ export const TodoContextProvider: FC<TodoContextProviderProps> = ({
     setSearchQuery,
 
     // Данные
-    task,
+    // task,
     tasks,
     filteredTasks,
     countOfDoneTasks,
@@ -22,7 +22,6 @@ export const TodoContextProvider: FC<TodoContextProviderProps> = ({
     appearingTaskId,
 
     // Действия
-    getTask,
     addTask,
     toggleCompleteTask,
     deleteTask,
@@ -30,8 +29,6 @@ export const TodoContextProvider: FC<TodoContextProviderProps> = ({
 
     // UI состояние
     newTaskInputRef,
-    loading,
-    error,
   } = useTasks();
 
   const value = useMemo(
@@ -40,7 +37,7 @@ export const TodoContextProvider: FC<TodoContextProviderProps> = ({
       setSearchQuery,
 
       // Данные
-      task,
+      // task,
       tasks,
       filteredTasks,
       countOfDoneTasks,
@@ -48,7 +45,6 @@ export const TodoContextProvider: FC<TodoContextProviderProps> = ({
       appearingTaskId,
 
       // Действия
-      getTask,
       addTask,
       toggleCompleteTask,
       deleteTask,
@@ -56,15 +52,13 @@ export const TodoContextProvider: FC<TodoContextProviderProps> = ({
 
       // UI состояние
       newTaskInputRef,
-      loading,
-      error,
     }),
     [
       searchQuery,
       setSearchQuery,
 
       // Данные
-      task,
+      // task,
       tasks,
       filteredTasks,
       countOfDoneTasks,
@@ -72,7 +66,6 @@ export const TodoContextProvider: FC<TodoContextProviderProps> = ({
       appearingTaskId,
 
       // Действия
-      getTask,
       addTask,
       toggleCompleteTask,
       deleteTask,
@@ -80,8 +73,6 @@ export const TodoContextProvider: FC<TodoContextProviderProps> = ({
 
       // UI состояние
       newTaskInputRef,
-      loading,
-      error,
     ]
   );
 

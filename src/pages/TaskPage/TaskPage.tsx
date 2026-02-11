@@ -1,6 +1,7 @@
-import React, { useEffect } from "react";
-import { useTasks } from "@/entities/todo";
+import React, { useEffect, useState } from "react";
+import { type Task } from "@/entities/todo";
 import type { RouteParams } from "@/app/routing/Router";
+import taskAPI from "@/shared/api/tasks";
 
 interface TaskPageProps {
   params: RouteParams;
@@ -8,25 +9,43 @@ interface TaskPageProps {
 
 const TaskPage: React.FC<TaskPageProps> = (props) => {
   const { params } = props;
+  const taskID = params.id;
 
-  const { getTask, task, loading, error } = useTasks();
+  const [task, setTask] = useState<Task | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [hasError, setHasError] = useState(false);
 
   useEffect(() => {
-    if (params.id) {
-      void getTask(params.id);
-    }
-  }, [params, getTask]);
+    const fetchTask = async (taskID: string) => {
+      try {
+        const response = (await taskAPI.getTask(taskID)) as Response;
 
-  if (loading) {
-    return <div>Загрузка задачи...</div>;
+        if (!response.ok) {
+          throw new Error(`HTTP ${response.status}: Network Problems`);
+        }
+        const result: Task = await response.json();
+        setTask(result);
+      } catch (error) {
+        setHasError(true);
+        console.log(error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchTask(taskID);
+  }, [taskID]);
+
+  if (isLoading) {
+    return <div>Loading...</div>;
   }
 
-  if (error) {
-    return <div>Ошибка: {error}</div>;
+  if (hasError) {
+    return <div>Task not found!</div>;
   }
 
   if (!task) {
-    return <div>Задача не найдена</div>;
+    return <div>No such task</div>;
   }
 
   return (

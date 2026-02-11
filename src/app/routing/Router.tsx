@@ -1,6 +1,15 @@
+import { BASE_URL } from '@/shared/constants';
 import { useEffect, useState } from "react";
 
 type MatchPathParams = Record<string, string>;
+
+const getCurrentPath = () => {
+  const pathname = window.location.pathname;
+
+  return pathname.startsWith(BASE_URL)
+    ? pathname.slice(BASE_URL.length - 1) || "/"
+    : pathname;
+};
 
 const matchPath = (path: string, route: string): MatchPathParams | null => {
   const pathParts = path.split("/");
@@ -24,11 +33,11 @@ const matchPath = (path: string, route: string): MatchPathParams | null => {
 
 // eslint-disable-next-line react-refresh/only-export-components
 export const useRoute = () => {
-  const [path, setPath] = useState<string>(window.location.pathname);
+  const [path, setPath] = useState<string>(getCurrentPath());
 
   useEffect(() => {
     const onLocationChange = () => {
-      setPath(window.location.pathname);
+      setPath(getCurrentPath());
     };
 
     window.addEventListener("popstate", onLocationChange);

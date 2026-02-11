@@ -37,7 +37,7 @@ const TodoItem: FC<TodoItemProps> = ({
         id={id}
         type="checkbox"
         checked={isChecked}
-        onChange={() => toggleCompleteTask(id)}
+        onChange={() => toggleCompleteTask(id, isChecked)}
         data-js-todo-item-checkbox
       />
       <label
@@ -47,7 +47,7 @@ const TodoItem: FC<TodoItemProps> = ({
       >
         {task}
       </label>
-      <RouterLink to={`/tasks/${id}`} aria-label="Task detail page">
+      <RouterLink to={` tasks/${id}`} aria-label="Task detail page">
         {task}
       </RouterLink>
       <button
